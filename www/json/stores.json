@@ -1,0 +1,19 @@
+{ 
+    "stores": [{
+    "id": 0,
+    "name": "Foodsbury",
+    "address": "3234 Main Street",
+    "locality": "Vasant Vihar",
+    "face": "http://www.futomicdesigns.com/images/restaurant-interiors/big/best-restaurant-interiors-designer-02.jpg",
+    "offer": "Upto 70% off on desserts",
+    "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
+    }, {
+    "id": 1,
+    "name": "Pizza Hut",
+    "locality": "Alk Nagar",
+    "face": "http://www.futomicdesigns.com/images/restaurant-interiors/top-restaurant-interiors-designer-04.jpg",
+    "offer": "Upto 20% off on pizzas",
+    "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
+    }
+    ]
+}

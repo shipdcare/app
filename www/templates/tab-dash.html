@@ -1,0 +1,102 @@
+<ion-view>
+  <ion-nav-bar class="bar-stable">
+    <ion-nav-buttons side="left">
+      <button class="ion-navicon-round nav-button" ng-click="toggleLeft()"></button>
+      <p class="nav-name icon-right ion-chevron-down" ng-click="showLocalities()">{{locality}}</p>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-side-menus>
+  <!-- Left menu -->
+    <ion-side-menu side="left">
+      <div class="avatar">
+        <img ng-src="{{photoUrl}}">
+      </div>
+      <div class="person-detail">
+        <h4>{{displayName}}</h4>
+        <h4>{{displayCode}}</h4>
+      </div>
+      <ul class="list" style="margin-top: 20px">
+        <li class="item">
+          <a class="item-a" href="#/tab/rewards">My rewards</a>
+        </li>
+        <li class="item">
+          <a class="item-a" href="#/tab/bills">My Bills</a>
+        </li>
+        <li class="item">
+          <a class="item-a" href="#/tab/account">My Account</a>
+        </li>
+      </ul>
+    </ion-side-menu>
+
+    <ion-side-menu-content>
+    <ion-content>
+      <ion-slides  options="options" slider="data.slider">
+      <ion-slide-page ng-repeat="banner in banners">
+        <a href="#/tab/stores/{{banner.store_id}}">
+          <img class="box blue banner" ng-src="{{banner.image}}">
+        </a>
+      </ion-slide-page>
+    </ion-slides>
+    <div class="padding-top padding-horizontal">
+    	<div class="button-bar">
+    	  <a class="button" ng-click="clicked(1)" ng-class="{'button-outline button-stable': var == 2, 'button-assertive': var == 1 }">Nearby</a>
+    	  <a class="button" ng-click="clicked(2)" ng-class="{'button-outline button-stable': var == 1, 'button-assertive': var == 2}">Trending</a>
+    	</div>
+    	<div class="padding-top" ng-if="var == 1">
+        <ion-list>
+         <a ng-repeat="store in stores" href="#/tab/stores/{{store.id}}">
+          <div class="card">
+              <div>
+                <img ng-src={{store.face}} class="store-image">
+              </div>
+              <div class="padding-horizontal">
+                <div class="row" style="padding: 0; margin: 0;">
+                    <div class="col col-80" style="padding: 0; margin: 0;">
+                      <h4 class="store-name">{{store.name}}</h4>
+                      <p class="store-locality">{{store.locality}}</p>
+                    </div>
+                    <div class="col col-20" style="padding-top: 0;">
+                      <p class="right" style="color: #5c6065; font-size: 15px">{{store.cashback}}%<img src="img/badge.svg" style="height: 20px; width: 20px; top: 4.5px;
+position: relative"></p>
+                    </div>
+                  </div>
+                <p class="store-offer">{{store.offer}}</p>
+              </div>
+            </div>
+          </div>
+          </a>
+        </ion-list>
+      </div>
+      <div class="padding-top padding-horizontal" ng-if="var == 2">
+        <ion-list>
+         <a ng-repeat="t in trending" href="#/tab/stores/{{t.id}}">
+          <div class="card">
+              <div>
+                <img ng-src={{t.face}} class="store-image">
+              </div>
+              <div class="padding-horizontal">
+                <div class="row" style="padding: 0; margin: 0;">
+                    <div class="col col-80" style="padding: 0; margin: 0;">
+                      <h4 class="store-name">{{t.name}}</h4>
+                      <p class="store-locality">{{t.locality}}</p>
+                    </div>
+                    <div class="col col-20" style="padding-top: 0;">
+                      <p class="right" style="color: #5c6065; font-size: 15px">{{t.cashback}}% <img src="img/badge.svg" style="height: 20px; width: 20px; top: 4.5px;
+position: relative"></p>
+                    </div>
+                  </div>
+                <p class="store-offer">{{t.offer}}</p>
+              </div>
+            </div>
+          </div>
+          </a>
+        </ion-list>
+      </div>
+    </div>
+  </ion-content>
+    </ion-side-menu-content>
+
+  </ion-side-menus>
+
+</ion-view>

@@ -1,0 +1,29 @@
+<ion-modal-view>
+<ion-header-bar class="offer-bar">
+  <h4>Deal details</h4>
+  <button class="modal-cancel" ng-click="modal.hide()">Cancel</button>
+</ion-header-bar>
+<ion-content class="padding offer-content">
+	<h4>{{offer.title}}</h4>
+	 <div class="item-body" style="padding-left: 0">
+          <strong>Standard TnCs</strong>
+          <ul class="tnc">
+            <li>
+              Items listed in the offer are subject to availability at the outlet.
+            </li>
+            <li>
+              Cannot be combined with other offers, unless specified.
+            </li>
+            <li>
+              Serving time may vary during peak hours.
+            </li>
+            <li>
+              Alcohol and any age-restricted products will be served only above age permitted by law.
+            </li>
+          </ul>
+        </div>
+</ion-content>
+<ion-footer-bar class="row">
+	<a class="button button-assertive modal-positive col col-100" ng-click="modal.hide()" href="#/tab/upload/{{offer.id}}">Click picture of bill to claim</a>
+</ion-footer-bar>
+</ion-modal-view>

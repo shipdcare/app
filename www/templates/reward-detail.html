@@ -1,0 +1,57 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view hide-tabs>
+    <ion-nav-bar class="bar-stable">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+    <ion-nav-title>
+    </ion-nav-title>
+  </ion-nav-bar>
+
+  <ion-content class="padding">
+    <div class="card">
+      <div class="item item-text-wrap">
+      <h1 style="font-size: 19px">{{reward.name}}</h1>
+      <p style="color: #5c6065; font-size: 12px;">{{reward.description}}</p>
+      </div>
+    </div>
+    <div class="card">
+      <p style="font-size: 18px; margin-right: 20px; font-weight: 500; margin-top: 15px; margin-bottom: 15px; text-align: center;" ng-class="{'red': reward.points > points}">Required rewards:  {{reward.points}}<img src="img/badge.svg" style="height: 25px; width: 25px; top: 4.5px;
+      position: relative"></p>
+    </div>
+    <div class="card">
+      <p style="color: #5c6065; font-size: 18px; margin-right: 20px; font-weight: 500; margin-top: 15px; margin-bottom: 15px; text-align: center;">Current rewards: {{ points }}<img src="img/badge.svg" style="height: 25px; width: 25px; top: 4.5px;
+      position: relative"></p>
+    </div>
+    <a class="button button-block button-dark" ng-click="getReward()">Get Reward</a>
+    <div class="item item-body">
+      <strong>Standard TnCs</strong>
+      <ul class="tnc">
+        <li>
+          Items listed in the offer are subject to availability at the outlet.
+        </li>
+        <li>
+          Cannot be combined with other offers, unless specified.
+        </li>
+        <li>
+          Serving time may vary during peak hours.
+        </li>
+        <li>
+          Alcohol and any age-restricted products will be served only above age permitted by law.
+        </li>
+      </ul>
+    </div>
+
+    <div class="item item-body">
+      <strong>How to redeem this deal?</strong>
+      <div class="store-avail item-avatar">
+        <img src="img/qr-code.png" style="margin-top: 2.5em;">
+        Once you are at the outlet, present your voucher code (available in Rewards) to the merchant. Remember to present the voucher before placing the order.
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

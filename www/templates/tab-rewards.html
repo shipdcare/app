@@ -1,0 +1,38 @@
+<ion-view>
+  <ion-nav-bar class="bar-stable">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+    <ion-nav-title>
+      Rewards
+    </ion-nav-title>
+  </ion-nav-bar>
+  <ion-content>
+    <div class="rewards-header">
+      <div class="row">
+        <div class="col col-10">
+           <img src="img/badge.svg" style="height: 70px; width: 65px">
+        </div>
+        <div class="col col-80" style="margin-left: 40px">
+           <p style="font-size: 32px; color: rgba(0,0,0,0.7); margin-top: 10px;">{{ points }} Points</p>
+           <a class="button button-outline button-dark icon-right ion-chevron-right redeem" ng-click="getCashback()">Get Recharge</a>
+           <a class="button button-outline button-dark icon-right ion-chevron-right redeem" ng-click="transferRewards()">Transfer rewards</a>
+        </div>
+      </div>
+    </div>
+    <ion-list>
+      <ion-item class="padding-vertical item-reward" ng-repeat="reward in rewards" type="item-text-wrap" href="#/tab/rewards/{{reward.id}}">
+        <div class="row">
+          <div class="col col-80">
+            <h2>{{reward.name}}</h2>
+            <h3 style="margin-top: 6px;">{{reward.outlet}}</h3>
+          </div>
+          <div class="col col-20">
+            <p class="right" style="color: #5c6065; font-size: 15px; right: 0;
+  position: absolute; margin-right: 20px; font-weight: 500">{{reward.points}} <img src="img/badge.svg" style="height: 20px; width: 20px; top: 4.5px;
+    position: relative"></p>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

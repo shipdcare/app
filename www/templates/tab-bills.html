@@ -1,0 +1,35 @@
+<ion-view view-title="Bills">
+  <ion-nav-bar class="bar-stable">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+    <ion-nav-title>
+      Bills
+    </ion-nav-title>
+  </ion-nav-bar>
+  <ion-content class="has-header">              
+     <div class="row unlimited-items" ng-if="bills.length >= 0">
+       <div class="col" ng-repeat="data in bills">
+          <div class="list card bill">
+             <div class="item item-image mybills-card-first-item-bg">
+                <img ng-src="{{data.face}}" height="150" />
+             </div>
+             <div class="item" style="padding:0px">
+                 <div class="row">
+                    <div class="col" align="left">&#8377; {{data.amount}}/-</div>
+                     <div class="col " align="right"><span ng-class="{'mybills-status-approved': data.status == 'APPROVED' , 'mybills-status-pending': data.status == 'PENDING',
+            'mybills-status-rejected': data.status == 'REJECTED'} ">{{data.status}}</span></div>
+                  </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <div ng-if="bills.length == 0 || bills == null" style="padding: 10px">
+      <div class="list card">
+        <img src="img/receipt.svg" class="no-account-image">
+        <hr style="margin: 1em 1.5em;">
+        <h4 style="text-align: center;">Nothing here yet</h4>
+        <p style="margin: 2em 2em 2em; text-align: center;">You will get notifications about bills you upload here.</p>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

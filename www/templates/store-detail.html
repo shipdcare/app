@@ -1,0 +1,66 @@
+<ion-view hide-tabs>
+  <ion-content>
+    <a class="button-clear back" href="#/tab/dash">
+      <i class="ion-arrow-left-c padding back"></i>
+    </a>
+    <img ng-src="{{store.face}}" class="store-detail-parallax">
+    <div class="card store-detail-header">
+      <div class="item item-text-wrap">
+        <h2 style="font-size: 20px;">
+          <strong>{{store.name}}</strong>
+        </h2>
+        <p class="store-sub-detail">{{store.locality}}</p>
+        <hr>
+        <p class="store-sub-detail">{{store.description}}</p>
+      </div>
+    </div>
+    <div class="padding">
+      <ion-list ng-if="offers.length > 0">
+        <ion-item ng-repeat='offer in offers' class="item item-icon-right" ng-click="openModal(offer)">
+          <p style="color: #000">{{offer.title}}</p>
+           <i class="icon ion-chevron-right icon-accessory red"></i>
+        </ion-item>
+      </ion-list>
+      <div ng-if="offers.length == 0" class="card padding" style="padding: 10px; font-size: 13px; text-align: center;">
+        No offers found for the selected place
+      </div>
+    </div>
+
+    <div class="padding">
+      <div class="list card">
+
+        <div class="item">
+          <h2>{{store.address}}</h2>
+          <p>{{store.locality}}</p>
+        </div>
+
+        <div class="item item-body">
+          <strong>Standard TnCs</strong>
+          <ul class="tnc">
+            <li>
+              Items listed in the offer are subject to availability at the outlet.
+            </li>
+            <li>
+              Cannot be combined with other offers, unless specified.
+            </li>
+            <li>
+              Serving time may vary during peak hours.
+            </li>
+            <li>
+              Alcohol and any age-restricted products will be served only above age permitted by law.
+            </li>
+          </ul>
+        </div>
+
+        <div class="item item-body">
+          <strong>How to redeem this deal?</strong>
+          <div class="store-avail item-avatar">
+            <img src="img/qr-code.png" style="margin-top: 2.5em;">
+            Once you are at the outlet, present your voucher code (available in Rewards) to the merchant. Remember to present the voucher before placing the order.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>

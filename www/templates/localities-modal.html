@@ -1,0 +1,13 @@
+<ion-modal-view>
+<ion-header-bar class="offer-bar">
+  <h4>Select Locality</h4>
+  <button class="modal-cancel" ng-click="modal.hide()">Cancel</button>
+</ion-header-bar>
+<ion-content style="top: 44px;">
+  <ion-list>
+    <ion-item  ng-repeat="item in localities" ng-click="selectLocation(item)">
+      <h2>{{ item.name }}</h2>
+    </ion-item>
+  </ion-list>
+</ion-content>
+</ion-modal-view>

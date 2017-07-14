@@ -1,0 +1,23 @@
+<ion-view hide-tabs>
+  <a class="button-clear back" href="#/login">
+      <i class="ion-arrow-left-c padding back" style="color: white"></i>
+    </a>
+  <ion-content class="login-screen">
+    <div class="login-heading">
+      <img src="img/logo-ro.png" class="logo">
+    </div>
+    <div class="padding">
+      <form name="confirmForm" novalidate="" ng-submit="confirm(confirmForm)">
+        <div class="list">
+          <p ng-class="{'hide': tokenError == false}" style="color: #fff">Wrong code</p>
+          <label style="background-color: #fff;" class="item item-input item-stacked-label" ng-class="{'input-error': tokenError == true}">
+            <span class="input-label">OTP</span>
+            <input type="tel" placeholder="1234" ng-model="authorization.token">
+          </label>
+        <button class="button button-block" type="submit">
+          Submit
+        </button>
+      </form>
+    </div>
+  </ion-content>
+</ion-view>

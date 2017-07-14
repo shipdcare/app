@@ -1,0 +1,25 @@
+<ion-view hide-tabs>
+  <ion-content class="login-screen">
+    <div class="login-heading">
+      <img src="img/logo-ro.png" class="logo">
+    </div>
+    <div class="padding">
+      <form name="authorizationForm" novalidate="" ng-submit="signIn(authorizationForm)"> 
+        <div class="list">
+          <label style="background-color: #fff" class="item item-input item-stacked-label" ng-class="{'input-error': phoneError == true, 'correct-input':  authorizationForm.phone.$valid}">
+            <span class="input-label">Phone</span>
+            <input placeholder="9876512345" ng-minlength="10" ng-maxlength="10" name="phone" type="tel" ng-model="authorization.phone" required>
+          </label>
+          <label style="background-color: #fff" class="item item-input item-stacked-label" ng-class="{'input-error': promoError == true }">
+            <span class="input-label">Referral (optional)</span>
+            <input type="text" style="background-color: transparent;" placeholder="JOH12" ng-model="authorization.promo">
+          </label>
+        </div>
+
+        <button class="button button-block" type="submit">
+          Submit
+        </button>
+        </div>
+    </div>
+  </ion-content>
+</ion-view>
