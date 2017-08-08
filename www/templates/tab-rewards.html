@@ -20,11 +20,11 @@
       </div>
     </div>
     <ion-list>
-      <ion-item class="padding-vertical item-reward" ng-repeat="reward in rewards" type="item-text-wrap" href="#/tab/rewards/{{reward.id}}">
+      <ion-item class="padding-vertical item-reward" ng-repeat="reward in transactions" type="item-text-wrap">
         <div class="row">
           <div class="col col-80">
-            <h2>{{reward.name}}</h2>
-            <h3 style="margin-top: 6px;">{{reward.outlet}}</h3>
+            <h2>{{reward.offer_title}}</h2>
+            <h3 style="margin-top: 6px">Rs. {{reward.amount}}</h3>
           </div>
           <div class="col col-20">
             <p class="right" style="color: #5c6065; font-size: 15px; right: 0;

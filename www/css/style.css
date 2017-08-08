@@ -105,7 +105,7 @@ ion-tabs.tabs-color-active-positive .tab-item {
 	margin-top: 0;
 	margin-bottom: 2px;
 	font-weight: 500;
-	font-size: 16px;
+	font-size: 12px;
 	margin-top: 2px;
 }
 
@@ -129,7 +129,7 @@ ion-tabs.tabs-color-active-positive .tab-item {
 }
 
 .store-offer {
-	font-size: 12px;
+	font-size: 11px;
 	color: #0077cc;
 	margin: 0 0 2px;
 }
@@ -404,6 +404,11 @@ ion-loading {
   bottom: 25px;
 }
 
+.goog-btn {
+	position: fixed;
+  	bottom: 90px;
+}
+
 .avatar{
 	width: 100px;
 	height: 100px;
@@ -433,4 +438,23 @@ ion-loading {
 	float: right;
 	padding-left: 5px;
 	line-height: 44px
+}
+
+
+.ion-ios-star, .ion-ios-star-outline {
+	font-size: 35px;
+	color: #bc212d;
+}
+
+.rating {
+    margin: 15px auto auto;
+    float: none;
+    display: block;
+    text-align: center;
+}
+
+.rating li {
+	display: inline;
+    text-align:center;
+    margin: 0 10px;
 }

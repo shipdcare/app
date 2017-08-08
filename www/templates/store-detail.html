@@ -29,26 +29,16 @@
     <div class="padding">
       <div class="list card">
 
-        <div class="item">
+        <div class="item item-text-wrap">
           <h2>{{store.address}}</h2>
+           <a href="tel: {{ store.phone }}" style="margin-top: 10px">{{ store.phone }}</a>
           <p>{{store.locality}}</p>
         </div>
 
         <div class="item item-body">
           <strong>Standard TnCs</strong>
           <ul class="tnc">
-            <li>
-              Items listed in the offer are subject to availability at the outlet.
-            </li>
-            <li>
-              Cannot be combined with other offers, unless specified.
-            </li>
-            <li>
-              Serving time may vary during peak hours.
-            </li>
-            <li>
-              Alcohol and any age-restricted products will be served only above age permitted by law.
-            </li>
+            {{ store.terms }}
           </ul>
         </div>
 

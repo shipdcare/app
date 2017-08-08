@@ -5,16 +5,54 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','ngCordova', 'firebase', 'starter.controllers', 'starter.services', 'ngCordovaOauth'])
+angular.module('starter', ['ionic', 'ngCordova', 'firebase', 'starter.controllers', 'starter.services', 'ngCordovaOauth'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $cordovaPush) {
   var ready = false;
   initFire();
+
+    var androidConfig = {
+        "senderID": "250385009538"
+    };
+
+    document.addEventListener("deviceready", function(){
+        $cordovaPush.register(androidConfig).then(function(result) {
+            //alert('RESULT:' + result);
+        }, function(err) {
+            //alert('ERROR:' + err);
+        });
+
+        $rootScope.$on('$cordovaPush:notificationReceived', function(event, notification) {
+            switch(notification.event) {
+                case 'registered':
+                    if (notification.regid.length > 0 ) {
+                        //localStorage.set("fcm_token", notification.regid);
+                        alert('registration ID = ' + notification.regid);
+                    }
+                    break;
+
+                case 'message':
+                    // this is the actual push notification. its format depends on the data model from the push server
+                    alert('message = ' + notification.message + ' msgCount = ' + notification.msgcnt);
+                    break;
+
+                case 'error':
+                    alert('GCM error = ' + notification.msg);
+                    break;
+
+                default:
+                    alert('An unknown GCM event has occurred');
+                    break;
+            }
+        });
+    }, false);
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if (navigator.splashscreen) {
-        console.warn('Hiding splash screen');
+
+      if (navigator.splashscreen) {
+        //console.warn('Hiding splash screen');
         // We're done initializing, remove the splash screen
         navigator.splashscreen.hide();
     }
@@ -24,18 +62,31 @@ angular.module('starter', ['ionic','ngCordova', 'firebase', 'starter.controllers
 
     }
     if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
+        // org.apache.cordova.statusbar required
+        StatusBar.styleDefault();
     }
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicCloudProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
+  $ionicCloudProvider.init({
+    "core": {
+      "app_id": "5711a7e3"
+    },
+    "auth": {
+      "google": {
+        "webClientId": "250385009538-b4dn0j9qteohjci70plhah55dmih5qb3.apps.googleusercontent.com",
+        "scope": []
+      }
+    }
+  });
+
+
   $stateProvider
 
   .state('login', {
@@ -181,4 +232,4 @@ function initFire(){
         messagingSenderId: "939388628630"
       };
       firebase.initializeApp(config);
-};
+}

@@ -7,28 +7,8 @@
     </ion-nav-title>
   </ion-nav-bar>
   <ion-content class="padding">
-    <div class="button-bar">
-      <a class="button button-light" ng-click="clicked(1)" ng-class="{'button-assertive': var == 1 }" style="border: 1px solid #ddd">Orders</a>
-      <a class="button button-light" ng-click="clicked(2)" ng-class="
-      {'button-assertive': var == 2}" style="border: 1px solid #ddd; border-right: 0; border-left: 0;">Promos</a>
-      <a class="button button-light" ng-click="clicked(3)" ng-class="{'button-assertive': var == 3}" 
-      style="border: 1px solid #ddd">Notifications</a>
-    </div>
-    <div class="" ng-if="var == 1">
-      <ion-list class="padding" ng-if="orders.length > 0">
-        <ion-item class="item item-icon-right" ng-repeat="order in orders" type="item-text-wrap" href="#/tab/orders/{{order.id}}">
-          <h2>{{order.name}}</h2>
-           <i class="icon ion-chevron-right icon-accessory red"></i>
-        </ion-item>
-      </ion-list>
-      <div class="list card" style="margin-top: 10px;" ng-if="orders.length == 0 || orders == null">
-        <img src="img/cart.svg" class="no-account-image">
-        <hr style="margin: 1em 1.5em;">
-        <h4 style="text-align: center;">Nothing here yet</h4>
-        <p style="margin: 2em 2em 2em; text-align: center;">You will get details of your rewards and orders here.</p>
-      </div>
-    </div>
-    <div class="" ng-if="var == 2">
+
+    <div class="">
       <div class="card" style="margin-top: 10px; padding: 10px; background-color: #db5149">
         <p style="color: #fff; text-align: center; ">My code</p>
         <h3 style="color: #fff; text-align: center;margin-top: 5px;">{{ code }}</h3>
@@ -43,13 +23,6 @@
         &nbsp;&nbsp;&nbsp;Invite friends to use ROB
       </div>
     </div>
-    <div class="" ng-if="var == 3">
-      <div class="list card" style="margin-top: 10px;">
-        <img src="img/bell.svg" class="no-account-image">
-        <hr style="margin: 1em 1.5em;">
-        <h4 style="text-align: center;">Nothing here yet</h4>
-        <p style="margin: 2em 2em 2em; text-align: center;">You will get notifications about great deals around you here.</p>
-      </div>
-    </div>
+
   </ion-content>
 </ion-view>

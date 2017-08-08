@@ -15,9 +15,13 @@
 			<button class="col button button-assertive " ng-click="takeImage()" style="margin-right: 5px;">Take Image</button><br/>
 			<button class="col button button-outline button-assertive " ng-click="chooseImage()" style="margin-left: 5px;">Choose Image</button><br/>
 		</div>
+		<rating ng-model="rating.rate" max="rating.max"></rating>
 		<form name="billForm" ng-submit="submit(billForm)">
 			<label class="item item-input" style="margin: 20px 0"  ng-class="{'input-error': amountError == true}">
 				<input type="tel" ng-model="bill.amount" placeholder="Amount">
+			</label>
+			<label class="item item-input" style="margin: 20px 0"  ng-class="{'input-error': reviewError == true}">
+				<input type="text" ng-model="bill.review" placeholder="Review (optional)">
 			</label>
 			<button class="button button-block button-dark" type="submit">Submit</button>
 		</form>
