@@ -229,6 +229,7 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
                         var userEmail = response.email;
                         var name = response.name;
                         auth.fetchProvidersForEmail(userEmail).then(function (providers) {
+                            //alert(JSON.stringify(providers));
                             if (providers.length > 0) {
                                 loginUser(result.access_token);
                             } else {
@@ -274,20 +275,11 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
         }
     })
 
-    .controller('DashCtrl', function ($scope, $cordovaGeolocation, $ionicLoading, $state, $ionicViewService, $ionicPlatform, $ionicHistory, $ionicSideMenuDelegate, $rootScope, $http, $ionicModal, $ionicPush, $ionicPopup) {
+    .controller('DashCtrl', function ($scope, $cordovaGeolocation, $ionicLoading, $state, $ionicViewService, $ionicPlatform, $ionicHistory, $ionicSideMenuDelegate, $rootScope, $http, $ionicModal, $ionicPush, $ionicPopup, $ionicFilterBar) {
 
         $scope.$on('cloud:push:notification', function (event, data) {
             var msg = data.message;
             alert(msg.title + ': ' + msg.text);
-        });
-
-        var posOptions = {timeout: 10000, enableHighAccuracy: true};
-        $cordovaGeolocation
-          .getCurrentPosition(posOptions)
-          .then(function (position) {
-            var lat  = position.coords.latitude;
-            var long = position.coords.longitude;
-          }, function(err) {
         });
 
         $rootScope.hideTabs = '';
@@ -341,9 +333,21 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
             $scope.error = "Could not load slides."
         });
 
+        $scope.stores = [];
+        
         var ref = firebase.database().ref('stores').orderByChild("locality").equalTo($scope.locality);
         ref.on("value", function (snapshot) {
-            $scope.stores = snapshot.val();
+            snapshot.forEach(function(item){
+                $scope.stores.push(item.val());
+            });
+            $scope.showFilterBar = function(){
+                filterBar = $ionicFilterBar.show({
+                    items: $scope.stores,
+                    update: function(filteredItems, filterText){
+                        $scope.stores = filteredItems
+                    }
+                });
+            }
             $ionicLoading.hide();
             // console.log(snapshot.val());
         }, function (error) {
@@ -354,8 +358,34 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
         var localitiesRef = firebase.database().ref('localities');
         localitiesRef.on("value", function (snapshot) {
             $scope.localities = snapshot.val();
+            //console.log($scope.localities)
+            
             $ionicLoading.hide();
-            console.log(snapshot.val());
+            var posOptions = {timeout: 10000, enableHighAccuracy: true};
+            $cordovaGeolocation
+            .getCurrentPosition(posOptions)
+            .then(function (position) {
+                var lat  = position.coords.latitude;
+                var long = position.coords.longitude;
+                $scope.dist =[];
+                var temp = 99999999999;
+                var locationName="";
+               $scope.localities.forEach(function(item){
+                //console.log(item.latitude);
+                //console.log(item.longitude);
+                var distance = ((item.latitude - lat)*(item.latitude - lat)) + ((item.longitude - long)*(item.longitude - long));
+                if (temp > distance){
+                    temp = distance;
+                    locationName = item.name;
+                }
+                //alert(distance);
+                //$scope.dist.push(distance)
+            })
+            alert(locationName); 
+            //alert($scope.dist);
+            }, function(err) {
+                alert(JSON.stringify(err))   
+            });
         }, function (error) {
             $ionicLoading.hide();
             $scope.error = "Could not load stores."
@@ -387,7 +417,11 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
             showLoader($ionicLoading);
             var ref = firebase.database().ref('stores').orderByChild("locality").equalTo($scope.locality);
             ref.on("value", function (snapshot) {
-                $scope.stores = snapshot.val();
+                $scope.stores = [];
+                 snapshot.forEach(function(item){
+                    $scope.stores.push(item.val());
+                });
+                console.log($scope.stores);
                 $ionicLoading.hide();
                 // console.log(snapshot.val());
             }, function (error) {
@@ -881,6 +915,20 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
         }, function (error) {
             $scope.error = "Could not load order."
         });
+    })
+
+    .controller('ChangePhone', function($scope, $ionicLoading){
+       $scope.phone = "";
+       $scope.submit= function(form) {
+                if(form.$vaild){
+                    console.log("Helli");
+                } else {
+                    console.log("Hell2");
+                    $scope.error = "Please enter a valid phone."
+                }
+        }
+
+
     })
 
     .controller('AccountCtrl', function ($scope, $ionicLoading, $cordovaSocialSharing) {

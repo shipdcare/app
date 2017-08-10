@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCordova', 'firebase', 'starter.controllers', 'starter.services', 'ngCordovaOauth'])
+angular.module('starter', ['ionic', 'ngCordova', 'firebase', 'starter.controllers', 'starter.services', 'ngCordovaOauth', 'jett.ionic.filter.bar'])
 
 .run(function($ionicPlatform, $cordovaPush) {
   var ready = false;
@@ -202,6 +202,15 @@ angular.module('starter', ['ionic', 'ngCordova', 'firebase', 'starter.controller
       'tab-account': {
         templateUrl: 'templates/tab-account.html',
         controller: 'AccountCtrl'
+      }
+    }
+  })
+  .state('tab.changenumber',{
+    url: '/change_number',
+    views: {
+      'tab-changenumber': {
+        templateUrl: 'templates/tab-changenumber.html',
+        controller: 'ChangePhone'
       }
     }
   });

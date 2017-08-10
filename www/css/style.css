@@ -458,3 +458,12 @@ ion-loading {
     text-align:center;
     margin: 0 10px;
 }
+.ion-android-search{
+	font-size: 20px;
+	color:white;
+}
+.bar .button.button-icon .icon:before, .bar .button.button-icon:before, .bar .button.button-icon.icon-left:before, .bar .button.button-icon.icon-right:before, .bar button.button-icon .icon:before, .bar button.button-icon:before, .bar button.button-icon.icon-left:before, .bar button.button-icon.icon-right:before {
+    vertical-align: top;
+    font-size: 20px;
+    line-height: 22px;
+}

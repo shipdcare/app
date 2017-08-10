@@ -4,6 +4,13 @@
       <button class="ion-navicon-round nav-button" ng-click="toggleLeft()"></button>
       <p class="nav-name icon-right ion-chevron-down" ng-click="showLocalities()">{{locality}}</p>
     </ion-nav-buttons>
+    <ion-nav-buttons side="secondary">
+      <button class="buttons button-icon ion-android-search" ng-click="showFilterBar()">  
+      </button>
+    </ion-nav-buttons>
+    <ion-content class="padding">
+    </ion-content>  
+
   </ion-nav-bar>
 
   <ion-side-menus>
@@ -44,7 +51,7 @@
             <a class="button" ng-click="clicked(2)" ng-class="{'button-outline button-stable': var == 1, 'button-assertive': var == 2}">Trending</a>
           </div>
           <div class="row unlimited-items" ng-if="var == 1">
-              <a ng-repeat="store in stores" href="#/tab/stores/{{store.id}}" class="col">
+              <a ng-repeat="store in stores |orderBy:'-priority'" href="#/tab/stores/{{store.id}}" class="col">
                 <div class="card">
                   <div>
                                      <p><span style="position: absolute;

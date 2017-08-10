@@ -4,8 +4,12 @@
   <button class="modal-cancel" ng-click="modal.hide()">Cancel</button>
 </ion-header-bar>
 <ion-content style="top: 44px;">
+  <label class="item item-input">
+    <i class="icon ion-search placeholder-icon"></i>
+  <input type="search" placeholder="Search" ng-model="searchBox"/>
+  </label>  
   <ion-list>
-    <ion-item  ng-repeat="item in localities" ng-click="selectLocation(item)">
+    <ion-item  ng-repeat="item in localities | filter:searchBox" ng-click="selectLocation(item)">
       <h2>{{ item.name }}</h2>
     </ion-item>
   </ion-list>
