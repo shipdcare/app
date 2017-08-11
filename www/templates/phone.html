@@ -1,0 +1,21 @@
+<ion-view hide-tabs>
+	<ion-header-bar class="bar-stable">
+		<a class="button-clear back" href="#/tab/dash">
+      <i class="ion-arrow-left-c back" style="margin-top: 2px;"></i>
+		</a>
+		<ion-title>
+			Change Phone Number
+			</ion-title>
+	</ion-header-bar>
+  <ion-content>
+  	<div style="margin: auto; margin-top: 10px; width: 90%; display: block; ">
+		<form name="userForm">
+            <p style="color: #bc212d; float: none; margin: auto; display: block; text-align: center">{{ error }}</p>
+			<label class="item item-input" style="margin: 20px 0">
+				<input type="tel" ng-model="user.phone" placeholder="Phone Number" ng-minlength="10" ng-maxlength="10"  required>
+			</label>
+			<button class="button button-block button-dark" type="submit" ng-click="submit(userForm)" >Submit</button>
+		</form>
+	</div>
+	</ion-content>
+</ion-view>

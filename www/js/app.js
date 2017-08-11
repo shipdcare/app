@@ -107,6 +107,12 @@ angular.module('starter', ['ionic', 'ngCordova', 'firebase', 'starter.controller
     controller: 'RegisterCtrl'
   })
 
+  .state('phone',{
+    url: '/phone',
+    templateUrl: 'templates/phone.html',
+    controller: 'PhoneCtrl'
+  })
+
   // setup an abstract state for the tabs directive
   .state('tab', {
     url: '/tab',
@@ -202,15 +208,6 @@ angular.module('starter', ['ionic', 'ngCordova', 'firebase', 'starter.controller
       'tab-account': {
         templateUrl: 'templates/tab-account.html',
         controller: 'AccountCtrl'
-      }
-    }
-  })
-  .state('tab.changenumber',{
-    url: '/change_number',
-    views: {
-      'tab-changenumber': {
-        templateUrl: 'templates/tab-changenumber.html',
-        controller: 'ChangePhone'
       }
     }
   });

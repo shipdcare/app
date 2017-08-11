@@ -134,12 +134,14 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
             var credential = firebase.auth.FacebookAuthProvider.credential(access_token);
             auth.signInWithCredential(credential).then(function (user) {
                 user_promo_code = user.displayName.split(' ').slice(0)[0] + randomToken(4);
+                console.log(user_promo_code);
                 firebase.database().ref('users/' + user.uid).set({
                     points: 0,
                     code: user_promo_code,
                     phone: null,
                     fcm_token: window.localStorage.getItem("fcm_token")
                 }).then(function () {
+                    console.log("WORKING2")
                     $ionicLoading.hide();
                     window.localStorage.setItem("access_token", access_token);
                     window.localStorage.setItem("state", "created");
@@ -157,6 +159,12 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
                     });
                     //$ionicHistory.clearCache();
                     $state.go("login");
+                }).catch(function (error) {
+                    $ionicLoading.hide();
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Error',
+                        template: error
+                    });
                 });
             });
         };
@@ -226,21 +234,26 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
             $cordovaOauth.facebook("1381325705223641", ["email", "public_profile"]).then(function (result) {
                 FB.api('/me', {access_token: result.access_token, locale: 'en_US', fields: 'name, email'},
                     function (response) {
+                        //alert(JSON.stringify(response.email));
                         var userEmail = response.email;
                         var name = response.name;
-                        auth.fetchProvidersForEmail(userEmail).then(function (providers) {
-                            //alert(JSON.stringify(providers));
-                            if (providers.length > 0) {
-                                loginUser(result.access_token);
-                            } else {
-                                registerNewUser(result.access_token);
-                            }
-                        }, function (error) {
-                            var alertPopup = $ionicPopup.alert({
-                                title: 'Error',
-                                template: 'There was an error!'
+                        if(userEmail === null || userEmail === undefined){
+                            registerNewUser(result.access_token);
+                        } else {
+                            auth.fetchProvidersForEmail(userEmail).then(function (providers) {
+                                //alert(JSON.stringify(providers));
+                                if (providers.length > 0) {
+                                    loginUser(result.access_token);
+                                } else {
+                                    registerNewUser(result.access_token);
+                                }
+                            }, function (error) {
+                                var alertPopup = $ionicPopup.alert({
+                                    title: 'Error',
+                                    template: 'There was an error!'
+                                });
                             });
-                        });
+                        }
                     }
                 );
             }, function (error) {
@@ -318,12 +331,6 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
         $scope.displayName = window.localStorage.getItem("displayName");
         $scope.displayCode = window.localStorage.getItem("promo_code");
 
-        if (window.localStorage.getItem('locality') === null) {
-            window.localStorage.setItem('locality', 'Habsiguda')
-        }
-
-        $scope.locality = window.localStorage.getItem('locality');
-
         $scope.localities = [];
 
         var bannerRef = firebase.database().ref('banner');
@@ -334,33 +341,11 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
         });
 
         $scope.stores = [];
-        
-        var ref = firebase.database().ref('stores').orderByChild("locality").equalTo($scope.locality);
-        ref.on("value", function (snapshot) {
-            snapshot.forEach(function(item){
-                $scope.stores.push(item.val());
-            });
-            $scope.showFilterBar = function(){
-                filterBar = $ionicFilterBar.show({
-                    items: $scope.stores,
-                    update: function(filteredItems, filterText){
-                        $scope.stores = filteredItems
-                    }
-                });
-            }
-            $ionicLoading.hide();
-            // console.log(snapshot.val());
-        }, function (error) {
-            $ionicLoading.hide();
-            $scope.error = "Could not load stores."
-        });
 
         var localitiesRef = firebase.database().ref('localities');
         localitiesRef.on("value", function (snapshot) {
             $scope.localities = snapshot.val();
             //console.log($scope.localities)
-            
-            $ionicLoading.hide();
             var posOptions = {timeout: 10000, enableHighAccuracy: true};
             $cordovaGeolocation
             .getCurrentPosition(posOptions)
@@ -378,18 +363,51 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
                     temp = distance;
                     locationName = item.name;
                 }
-                //alert(distance);
-                //$scope.dist.push(distance)
             })
-            alert(locationName); 
-            //alert($scope.dist);
+            if(locationName !== ""){
+                window.localStorage.setItem("locality", locationName);
+            } else {
+                window.localStorage.setItem('locality', 'Habsiguda');
+            }
+            loadData();
             }, function(err) {
-                alert(JSON.stringify(err))   
+                if (window.localStorage.getItem('locality') === null) {
+                    window.localStorage.setItem('locality', 'Habsiguda')
+                }
+                loadData();
+               //fasa alert(JSON.stringify(err))   
             });
         }, function (error) {
             $ionicLoading.hide();
             $scope.error = "Could not load stores."
+            if (window.localStorage.getItem('locality') === null) {
+                window.localStorage.setItem('locality', 'Habsiguda')
+            }
+            loadData();
         });
+
+        function loadData(){
+            $scope.locality = window.localStorage.getItem('locality');
+            var ref = firebase.database().ref('stores').orderByChild("locality").equalTo($scope.locality);
+            ref.on("value", function (snapshot) {
+                snapshot.forEach(function(item){
+                    $scope.stores.push(item.val());
+                });
+                $scope.showFilterBar = function(){
+                    filterBar = $ionicFilterBar.show({
+                        items: $scope.stores,
+                        update: function(filteredItems, filterText){
+                            $scope.stores = filteredItems
+                        }
+                    });
+                }
+                $ionicLoading.hide();
+                // console.log(snapshot.val());
+            }, function (error) {
+                $ionicLoading.hide();
+                $scope.error = "Could not load stores."
+            });
+        }
 
         var trendingRef = firebase.database().ref('stores').orderByChild('trending').equalTo(true);
         trendingRef.on("value", function (snapshot) {
@@ -428,6 +446,10 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
                 $ionicLoading.hide();
                 $scope.error = "Could not load stores."
             });
+        }
+
+        $scope.goToPhone = function(){
+            $state.go("phone");
         }
     })
 
@@ -917,16 +939,40 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
         });
     })
 
-    .controller('ChangePhone', function($scope, $ionicLoading){
-       $scope.phone = "";
-       $scope.submit= function(form) {
-                if(form.$vaild){
-                    console.log("Helli");
-                } else {
-                    console.log("Hell2");
-                    $scope.error = "Please enter a valid phone."
-                }
-        }
+    .controller('PhoneCtrl', function($scope, $ionicLoading, $rootScope, $ionicHistory, $state){
+       showLoader($ionicLoading);
+       $scope.user = {
+           phone: ""
+       };
+       var user_id = window.localStorage.getItem("uid");
+        var userRef = firebase.database().ref('users/' + user_id);
+        userRef.on('value', function(snapshot) {
+            if(snapshot.val() != null){
+                $scope.user.phone = snapshot.val().phone;
+                hideLoader($ionicLoading);
+            } else{
+                hideLoader($ionicLoading);
+            }
+        });
+       $scope.submit = function(form) { 
+           if(form.$valid){
+               $scope.error =  "";
+               userRef.update({
+                    phone: $scope.user.phone
+                });
+                // window.localStorage.setItem("phone", $scope.userForm.phone);
+                $rootScope.hideTabs = '';
+                $ionicHistory.nextViewOptions({
+                    disableBack: true,
+                    historyRoot: true
+                });
+                //$ionicHistory.clearCache();
+                $state.go("tab.dash");
+           }
+           else{
+               $scope.error = "Phone number is not valid"
+           }
+}
 
 
     })
