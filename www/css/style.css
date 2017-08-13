@@ -356,10 +356,10 @@ ion-loading {
 }
 
 .spinner svg {
-  width: 28px;
-  height: 28px;
-  stroke: #bc212d;
-  fill: #bc212d;
+  width: 34px;
+  height: 34px;
+  stroke: #000;
+  fill: #000;
   background-color: transparent;
 }
 

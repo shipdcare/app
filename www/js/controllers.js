@@ -38,7 +38,7 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
                         var token = randomToken(4);
                         $http({
                             method: 'GET',
-                            url: 'http://103.16.101.52:8080/bulksms/bulksms?username=ints-robapp&password=rob12345&type=0&dlr=1&destination=91' + $scope.authorization.phone + '&source=ROBAPP&message=' + token
+                            url: 'http://103.16.101.52:8080/bulksms/bulksms?username=ints-robapp&password=rob12345&type=0&dlr=1&destination=91' + $scope.authorization.phone + '&source=ROBAPP&message=' + token + " is your ROB verification code."
                         });
                         window.localStorage.setItem('verification_code', token);
                         window.localStorage.setItem('phone', $scope.authorization.phone);
@@ -141,7 +141,7 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
                     phone: null,
                     fcm_token: window.localStorage.getItem("fcm_token")
                 }).then(function () {
-                    console.log("WORKING2")
+                    //console.log("WORKING2")
                     $ionicLoading.hide();
                     window.localStorage.setItem("access_token", access_token);
                     window.localStorage.setItem("state", "created");
@@ -302,7 +302,7 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
         };
 
         $ionicLoading.show({
-            template: '<ion-spinner icon="ripple"></ion-spinner>'
+            template: '<ion-spinner icon="ios"></ion-spinner>'
         });
 
         $scope.var = 1;
@@ -387,6 +387,7 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
         });
 
         function loadData(){
+            $scope.stores = [];
             $scope.locality = window.localStorage.getItem('locality');
             var ref = firebase.database().ref('stores').orderByChild("locality").equalTo($scope.locality);
             ref.on("value", function (snapshot) {
@@ -426,6 +427,10 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
         $scope.showLocalities = function () {
             $scope.modal.show();
         };
+
+        $ionicPlatform.registerBackButtonAction(function () {
+            $scope.modal.hide();
+        });
 
         $scope.selectLocation = function (item) {
             window.localStorage.setItem('locality', item.name);
@@ -503,7 +508,7 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
         $scope.paytm_cashback = 2;
 
         $ionicLoading.show({
-            template: '<ion-spinner icon="ripple"></ion-spinner>'
+            template: '<ion-spinner icon="ios"></ion-spinner>'
         });
 
         var constantsRef = firebase.database().ref('constants');
@@ -539,7 +544,7 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
 
         $scope.transferRewards = function () {
             var popup = $ionicPopup.show({
-                template: '<input type="tel" ng-model="transfer.amount" placeholder="Enter amount"><input type="tel" ng-model="transfer.phone" placeholder="Enter phone">',
+                template: '<input type="number" ng-model="transfer.amount" placeholder="Enter amount" min="0"><input type="tel" ng-model="transfer.phone" placeholder="Enter phone">',
                 title: 'Transfer rewards',
                 subTitle: '',
                 scope: $scope,
@@ -695,7 +700,7 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
         var user_id = window.localStorage.getItem('uid');
         var code = randomString(6);
         $ionicLoading.show({
-            template: '<ion-spinner icon="ripple"></ion-spinner>'
+            template: '<ion-spinner icon="ios"></ion-spinner>'
         });
 
         var ref = firebase.database().ref('rewards/' + $stateParams.rewardId);
@@ -745,7 +750,7 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
         $scope.bills = [];
         var user_id = window.localStorage.getItem('uid');
         var billsRef = firebase.database().ref('bills');
-        billsRef.orderByChild("user_id").equalTo(user_id).on("value", function (data) {
+        billsRef.orderByChild("user_id").equalTo(user_id).once("value", function (data) {
             data.forEach(function (child) {
                 $scope.bills.push(child.val());
             });
@@ -800,7 +805,7 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
                 $scope.srcImage = "data:image/jpeg;base64," + imageData;
 
                 $ionicLoading.show({
-                    template: '<ion-spinner icon="ripple"></ion-spinner>'
+                    template: '<ion-spinner icon="ios"></ion-spinner>'
                 });
 
                 var name = randomString(8) + ".jpg";
@@ -835,7 +840,7 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
                 $scope.srcImage = "data:image/jpeg;base64," + imageData;
 
                 $ionicLoading.show({
-                    template: '<ion-spinner icon="ripple"></ion-spinner>'
+                    template: '<ion-spinner icon="ios"></ion-spinner>'
                 });
 
                 var name = randomString(8) + ".jpg";
@@ -904,7 +909,7 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
 
     .controller('OrderCtrl', function ($scope, $ionicLoading, $stateParams) {
         $ionicLoading.show({
-            template: '<ion-spinner icon="ripple"></ion-spinner>',
+            template: '<ion-spinner icon="ios"></ion-spinner>',
         });
 
         var ref = firebase.database().ref('orders').orderByChild('id').equalTo($stateParams.orderId);
@@ -921,7 +926,7 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
 
                 $scope.getCode = function () {
                     $ionicLoading.show({
-                        template: '<ion-spinner icon="ripple"></ion-spinner>'
+                        template: '<ion-spinner icon="ios"></ion-spinner>'
                     });
                     var updaterRef = firebase.database().ref('orders/' + childSnapshot.key);
                     updaterRef.update({
@@ -1000,7 +1005,7 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
 
 function showLoader(load) {
     load.show({
-        template: '<ion-spinner icon="ripple"></ion-spinner>'
+        template: '<ion-spinner icon="ios"></ion-spinner>'
     })
 }
 
