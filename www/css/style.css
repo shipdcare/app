@@ -71,7 +71,7 @@ ion-tabs.tabs-color-active-positive .tab-item {
 
 .nav-image {
 	margin-left: 10px;
-	width: 34px; 
+	width: 34px;
 	height: 34px;
 	border-radius: 7px;
 	border: 1px solid #ecf1f6;
@@ -139,8 +139,8 @@ ion-tabs.tabs-color-active-positive .tab-item {
 }
 
 .back {
-	position: absolute; 
-	color: white; 
+	position: absolute;
+	color: white;
 	font-size: 26px;
 	z-index: 2;
 	margin-top: 6px;
@@ -148,7 +148,7 @@ ion-tabs.tabs-color-active-positive .tab-item {
 
 .store-detail-parallax {
 	display:table;
-	width: 100%; 
+	width: 100%;
 	height: 150px;
 	background-color: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) );
     background-position:center top;
@@ -160,7 +160,7 @@ ion-tabs.tabs-color-active-positive .tab-item {
 	font-size: 18px;
 }
 
-.big-icon 
+.big-icon
 {
 	font-size:18px;
 }
@@ -187,7 +187,7 @@ ion-tabs.tabs-color-active-positive .tab-item {
 
 .store-avail {
 	font-size: 13px !important;
-	margin-top: 6px !important; 
+	margin-top: 6px !important;
 }
 
 div.modal-backdrop-bg{
@@ -211,15 +211,15 @@ div.modal-backdrop-bg{
 	color: #fff;
 }
 
-.offer-bar h4{ 
+.offer-bar h4{
 	color: #fff;
 	font-size: 14px;
 	margin-left: 10px;
 }
 
 .modal-cancel {
-	color: #fff; 
-	font-size: 12px; 
+	color: #fff;
+	font-size: 12px;
 	position: fixed;
 	margin-right: 1em;
 	background-color: transparent;
@@ -233,7 +233,7 @@ div.modal-backdrop-bg{
 }
 
 .redeem {
-	font-size: 12px; 
+	font-size: 12px;
 	padding: 5px;
 	min-height: 0;
 	line-height: 1;
@@ -347,7 +347,7 @@ ion-slides {
 	background-size: cover;
 }
 
-ion-loading { 
+ion-loading {
 	background-color: transparent;
 }
 
@@ -466,4 +466,21 @@ ion-loading {
     vertical-align: top;
     font-size: 20px;
     line-height: 22px;
+}
+.button {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    padding: 0 12px;
+    min-width: 48px;
+    min-height: 25px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 4px;
+    vertical-align: top;
+    text-align: center;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    line-height: 20px;
+    cursor: pointer;
 }

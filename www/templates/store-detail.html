@@ -16,9 +16,9 @@
     </div>
     <div class="padding">
       <ion-list ng-if="offers.length > 0">
-        <ion-item ng-repeat='offer in offers' class="item item-icon-right" ng-click="openModal(offer)">
-          <p style="color: #000">{{offer.title}}</p>
-           <i class="icon ion-chevron-right icon-accessory red"></i>
+        <ion-item ng-repeat='offer in offers' class="item item-icon-right" >
+          <p style="color: #000">{{offer.title}}
+            <button   class="button button-assertive" color="secondary"  round outline ng-click="openModal(offer)" style="float: right;">Upload bill</button></p>
         </ion-item>
       </ion-list>
       <div ng-if="offers.length == 0" class="card padding" style="padding: 10px; font-size: 13px; text-align: center;">

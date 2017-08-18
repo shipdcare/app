@@ -32,7 +32,7 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
                 var register = function () {
                     ref.update({
                         phone: $scope.authorization.phone,
-                        points: promo_points,
+                        points: 0,
                         fcm_token: window.localStorage.getItem("fcm_token")
                     }).then(function () {
                         var token = randomToken(4);
@@ -375,7 +375,7 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
                     window.localStorage.setItem('locality', 'Habsiguda')
                 }
                 loadData();
-               //fasa alert(JSON.stringify(err))   
+               //fasa alert(JSON.stringify(err))
             });
         }, function (error) {
             $ionicLoading.hide();
@@ -959,7 +959,7 @@ angular.module('starter.controllers', ['ionic.cloud', 'ionic.rating'])
                 hideLoader($ionicLoading);
             }
         });
-       $scope.submit = function(form) { 
+       $scope.submit = function(form) {
            if(form.$valid){
                $scope.error =  "";
                userRef.update({
